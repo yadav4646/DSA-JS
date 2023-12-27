@@ -101,3 +101,114 @@ Now, let's break down the execution:
     - The final result is 120, and it is logged to the console.
 
 So, the recursive function calculates the factorial of a number by breaking down the problem into smaller subproblems until it reaches the base case (**`item === 0`**). Each recursive call contributes to the final result.
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                                                                IN-DIRECT RECURSION
+# Indirect ****Recursion****
+
+What is Indirect Recursion?
+
+**Indirect recursion occurs when two or more functions are involved in a circular calling pattern. In other words, Function A calls Function B, and then Function B calls Function C, and eventually, Function C or another function calls back to Function A, forming a loop.**
+
+Here's a simple example to illustrate indirect recursion:
+
+```jsx
+javascriptCopy code
+// Function A
+function functionA() {
+  console.log("Function A");
+  functionB(); // Function A calls Function B
+}
+
+// Function B
+function functionB() {
+  console.log("Function B");
+  functionC(); // Function B calls Function C
+}
+
+// Function C
+function functionC() {
+  console.log("Function C");
+  functionA(); // Function C calls back to Function A, forming a loop
+}
+
+// Call Function A to start the indirect recursion
+functionA();
+
+```
+
+In this example, Function A calls Function B, which in turn calls Function C. Finally, Function C calls back to Function A, creating a circular or indirect recursion. When you run this code, you'll see an output that continuously cycles through the messages from Function A, Function B, and Function C.
+
+It's important to use caution with indirect recursion to avoid infinite loops. Proper base cases or exit conditions should be implemented to ensure that the recursion eventually stops. In some cases, indirect recursion can be useful for solving certain problems, but it requires careful design to prevent unintended consequences.
+
+https://www.youtube.com/watch?v=Njy2vF-X-K8&list=PL8p2I9GklV47TMMnPzqnkCtSOS3ebr4O7&index=12
+
+```jsx
+javascriptCopy code
+<script>
+    // Initial amount of money
+    let money = 100;
+
+    // Variable to track the total number of apples bought
+    let totalApple = 0;
+
+    // Function to buy apples
+    function buyApple(x) {
+        // Step 1: Check if there is still money to buy apples
+        if (x > 0) {
+            // Step 2: Display the current amount of money and total apples
+            console.warn(`I have Rs. ${x}, bought ${totalApple} apples.`);
+
+            // Step 3: Call the function to buy more apples
+            buyMore(x);
+        } else {
+            // Step 4: If there is no more money, display the total number of apples bought
+            console.warn(`I don't have more money. Bought ${totalApple} apples.`);
+        }
+    }
+
+    // Function to buy more apples
+    function buyMore(x) {
+        // Step 5: Increment the total number of apples
+        totalApple++;
+
+        // Step 6: Recursively call the buyApple function with reduced money (x - 20)
+        buyApple(x - 20);
+    }
+
+    // Step 7: Start the process by calling buyApple with the initial amount of money
+    buyApple(money);
+</script>
+
+```
+
+Now, let's go through the execution with comments:
+
+1. **Initial Setup (Step 7):**
+    - The process begins by calling **`buyApple(money)`** with an initial amount of Rs. 100.
+2. **Buying Apples (Steps 1-6):**
+    - Inside the **`buyApple`** function, it checks if there is enough money (**`x > 0`**).
+    - If there is money, it displays the current amount of money and the total number of apples bought, then calls the **`buyMore`** function.
+    - The **`buyMore`** function increments the total number of apples and calls **`buyApple`** recursively with reduced money (**`x - 20`**).
+    
+    **Console Output:**
+    
+    ```css
+    cssCopy code
+    I have Rs. 100, bought 0 apples.
+    I have Rs. 80, bought 1 apples.
+    I have Rs. 60, bought 2 apples.
+    I have Rs. 40, bought 3 apples.
+    I have Rs. 20, bought 4 apples.
+    I don't have more money. Bought 5 apples.
+    
+    ```
+    
+3. **Recursive Calls:**
+    - The process continues with recursive calls until there is no more money (**`x <= 0`**).
+    - Each recursive call reduces the amount of money by Rs. 20 and increments the total number of apples.
+4. **Final Output:**
+    - When the person runs out of money, the code prints a message indicating the total number of apples bought.
+
+In the console output, you can see the sequence of messages indicating the amount of money and the total number of apples at each step. The person buys an apple for Rs. 20 until there is no more money left. The final message indicates the total number of apples bought.
